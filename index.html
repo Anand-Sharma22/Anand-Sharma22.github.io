@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Anand Sharma</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #f8f6f1;
+  --fg: #1a1814;
+  --muted: #888076;
+  --line: #e0dbd0;
+  --accent: #3a6b4a;
+  --card: #f0ece3;
+  --serif: 'Lora', Georgia, serif;
+  --mono: 'DM Mono', monospace;
+}
+
+[data-theme="dark"] {
+  --bg: #141210;
+  --fg: #e8e4dc;
+  --muted: #7a7568;
+  --line: #2a2820;
+  --accent: #5a9b6a;
+  --card: #1e1c18;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--serif);
+  background: var(--bg);
+  color: var(--fg);
+  font-size: 17px;
+  line-height: 1.75;
+  transition: background 0.3s, color 0.3s;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── NAV ── */
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2rem 3.5rem;
+  border-bottom: 1px solid var(--line);
+  position: sticky;
+  top: 0;
+  background: var(--bg);
+  z-index: 50;
+  transition: background 0.3s;
+}
+
+.nav-brand {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  font-weight: 400;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--fg);
+  text-decoration: none;
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 2.5rem;
+}
+
+.nav-links {
+  display: flex;
+  gap: 2rem;
+  list-style: none;
+}
+
+.nav-links a {
+  font-family: var(--mono);
+  font-size: 0.66rem;
+  font-weight: 300;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  text-decoration: none;
+  transition: color 0.2s;
+  cursor: pointer;
+}
+
+.nav-links a:hover,
+.nav-links a.active { color: var(--fg); }
+
+.theme-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--muted);
+  font-size: 1rem;
+  padding: 0.2rem;
+  transition: color 0.2s;
+  line-height: 1;
+}
+.theme-btn:hover { color: var(--fg); }
+
+/* ── PAGES ── */
+.page { display: none; flex: 1; }
+.page.active { display: block; }
+
+/* ── HOME ── */
+#page-home {
+  display: none;
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 5rem 2rem 6rem;
+}
+
+#page-home.active { display: block; }
+
+.home-greeting {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 2rem;
+}
+
+.home-name {
+  font-family: var(--serif);
+  font-size: clamp(2.8rem, 6vw, 4.2rem);
+  font-weight: 400;
+  line-height: 1.1;
+  margin-bottom: 2.5rem;
+  letter-spacing: -0.02em;
+}
+
+.home-name em {
+  font-style: italic;
+  color: var(--muted);
+}
+
+.home-body {
+  font-size: 1.05rem;
+  color: var(--muted);
+  line-height: 1.85;
+  margin-bottom: 3.5rem;
+}
+
+.home-body p + p { margin-top: 1.2rem; }
+
+.home-body a {
+  color: var(--fg);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: var(--line);
+  transition: text-decoration-color 0.2s;
+}
+
+.home-body a:hover { text-decoration-color: var(--accent); }
+
+.home-links {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.link-pill {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  text-decoration: none;
+  padding: 0.55rem 1.1rem;
+  border: 1px solid var(--line);
+  transition: all 0.18s;
+  cursor: pointer;
+  background: none;
+}
+
+.link-pill:hover {
+  color: var(--fg);
+  border-color: var(--fg);
+}
+
+.link-pill.primary {
+  background: var(--fg);
+  color: var(--bg);
+  border-color: var(--fg);
+}
+
+.link-pill.primary:hover {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+
+/* ── ABOUT ── */
+#page-about {
+  display: none;
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 5rem 2rem 6rem;
+}
+#page-about.active { display: block; }
+
+.page-title {
+  font-family: var(--serif);
+  font-size: 2.2rem;
+  font-weight: 400;
+  margin-bottom: 2.5rem;
+  letter-spacing: -0.01em;
+}
+
+.prose {
+  font-size: 1rem;
+  color: var(--muted);
+  line-height: 1.9;
+}
+
+.prose p + p { margin-top: 1.3rem; }
+
+.prose strong { color: var(--fg); font-weight: 500; }
+
+.prose a {
+  color: var(--fg);
+  text-underline-offset: 3px;
+}
+
+/* ── RESEARCH ── */
+#page-research {
+  display: none;
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 5rem 2rem 6rem;
+}
+#page-research.active { display: block; }
+
+.research-intro {
+  font-size: 1rem;
+  color: var(--muted);
+  line-height: 1.85;
+  margin-bottom: 3.5rem;
+  max-width: 560px;
+}
+
+.research-intro a {
+  color: var(--fg);
+  text-underline-offset: 3px;
+}
+
+.pub-section-label {
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 1.5rem;
+}
+
+.pub-item {
+  padding: 2rem 0;
+  border-top: 1px solid var(--line);
+}
+
+.pub-item:last-child { border-bottom: 1px solid var(--line); }
+
+.pub-title {
+  font-family: var(--serif);
+  font-size: 1.02rem;
+  font-weight: 500;
+  line-height: 1.45;
+  margin-bottom: 0.5rem;
+}
+
+.pub-title a {
+  color: var(--fg);
+  text-decoration: none;
+  border-bottom: 1px solid var(--line);
+  transition: border-color 0.2s;
+}
+
+.pub-title a:hover { border-color: var(--accent); }
+
+.pub-authors {
+  font-size: 0.88rem;
+  color: var(--muted);
+  margin-bottom: 0.3rem;
+}
+
+.pub-venue {
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  color: var(--muted);
+  letter-spacing: 0.04em;
+}
+
+.pub-status {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: 0.56rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.12rem 0.5rem;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  margin-left: 0.5rem;
+  vertical-align: middle;
+}
+
+.pub-status.prep {
+  border-color: var(--line);
+  color: var(--muted);
+}
+
+/* ── CV ── */
+#page-cv {
+  display: none;
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 5rem 2rem 6rem;
+}
+#page-cv.active { display: block; }
+
+.cv-section { margin-bottom: 3rem; }
+
+.cv-section-title {
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.cv-entry {
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  gap: 0.5rem 1.5rem;
+  padding: 1rem 0;
+}
+
+.cv-entry + .cv-entry { border-top: 1px solid var(--line); }
+
+.cv-period {
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  color: var(--muted);
+  letter-spacing: 0.04em;
+  padding-top: 0.15rem;
+}
+
+.cv-title {
+  font-family: var(--serif);
+  font-size: 0.97rem;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.cv-org {
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  color: var(--muted);
+  margin-top: 0.15rem;
+  letter-spacing: 0.02em;
+}
+
+.cv-download {
+  display: inline-block;
+  margin-top: 2rem;
+}
+
+/* ── CONTACT ── */
+#page-contact {
+  display: none;
+  max-width: 540px;
+  margin: 0 auto;
+  padding: 5rem 2rem 6rem;
+}
+#page-contact.active { display: block; }
+
+.contact-block {
+  margin-top: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.contact-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.2rem 0;
+  border-bottom: 1px solid var(--line);
+  gap: 1rem;
+}
+
+.contact-row:first-child { border-top: 1px solid var(--line); }
+
+.contact-label {
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.contact-val {
+  font-family: var(--serif);
+  font-size: 0.95rem;
+  color: var(--fg);
+  text-decoration: none;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 1px;
+  transition: border-color 0.2s;
+}
+
+.contact-val:hover { border-color: var(--accent); }
+
+/* ── FOOTER ── */
+footer {
+  border-top: 1px solid var(--line);
+  padding: 1.5rem 3.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: auto;
+}
+
+.footer-copy {
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+}
+
+/* ── ANIMATIONS ── */
+.fade-up {
+  opacity: 0;
+  transform: translateY(16px);
+  animation: fadeUp 0.5s ease forwards;
+}
+
+@keyframes fadeUp {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.fade-up:nth-child(1) { animation-delay: 0.05s; }
+.fade-up:nth-child(2) { animation-delay: 0.12s; }
+.fade-up:nth-child(3) { animation-delay: 0.19s; }
+.fade-up:nth-child(4) { animation-delay: 0.26s; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 600px) {
+  nav { padding: 1.2rem 1.5rem; }
+  .nav-links { display: none; }
+  #page-home, #page-about, #page-research, #page-cv, #page-contact {
+    padding: 3rem 1.5rem 4rem;
+  }
+  .cv-entry { grid-template-columns: 1fr; }
+  footer { padding: 1.2rem 1.5rem; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-brand" onclick="showPage('home')" style="cursor:pointer;">Anand Sharma</a>
+  <div class="nav-right">
+    <ul class="nav-links">
+      <li><a onclick="showPage('home')" class="active" id="nav-home">Home</a></li>
+      <li><a onclick="showPage('about')" id="nav-about">About</a></li>
+      <li><a onclick="showPage('research')" id="nav-research">Research</a></li>
+      <li><a onclick="showPage('cv')" id="nav-cv">CV</a></li>
+      <li><a onclick="showPage('contact')" id="nav-contact">Contact</a></li>
+    </ul>
+    <button class="theme-btn" id="theme-toggle" title="Toggle theme">☽</button>
+  </div>
+</nav>
+
+<!-- HOME -->
+<div id="page-home" class="page active">
+  <p class="home-greeting fade-up">Physica · ML · Deep Learning · AI4Science </p>
+  <h1 class="home-name fade-up">Anand<br><em>Sharma</em></h1>
+  <div class="home-body fade-up">
+    <p>
+      Final-year BS–MS student majoring in Physics at <a href="https://www.iiserpune.ac.in" target="_blank">IISER Pune</a>, 
+      currently a visiting researcher at the <a href="https://www.uni.lu" target="_blank">University of Luxembourg</a>.
+    </p>
+    <p>
+      I work at the intersection of statistical physics and machine learning — 
+      building interpretable models, probing structure–dynamics relationships in 
+      glassy systems, and developing benchmarking methods for ML force fields.
+    </p>
+    <p>
+      Outside of research: badminton, chess, and travelling.
+    </p>
+  </div>
+  <div class="home-links fade-up">
+    <button class="link-pill primary" onclick="showPage('research')">Research</button>
+    <button class="link-pill" onclick="showPage('about')">About me</button>
+    <a class="link-pill" href="https://scholar.google.com/citations?user=rPC9pQMAAAAJ&hl=en" target="_blank">Scholar ↗</a>
+    <a class="link-pill" href="https://github.com/Anand-Sharma22" target="_blank">GitHub ↗</a>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<div id="page-about" class="page">
+  <h2 class="page-title fade-up">About Me</h2>
+  <div class="prose fade-up">
+    <p>
+      I am Anand Sharma, a final-year BS–MS student in Physics at the Indian Institute of Science Education and Research (IISER) Pune. I am currently a Visiting Student at the <strong>University of Luxembourg</strong>, working with Dr. Igor Poltavsky and Prof. Alexandre Tkatchenko on machine learning interatomic potentials and energy-landscape exploration.
+    </p>
+    <p>
+      My research is broadly at the interface of <strong>statistical physics and machine learning</strong>. I am drawn to questions about what machine learning models actually learn — what features matter, what the weights mean, and how to make predictions interpretable. In practice this has taken me from glassy dynamics to equivariant neural network force fields.
+    </p>
+    <p>
+      I have been fortunate to work closely with Dr. Misaki Ozawa and Prof. Daniele Coslovich (LIPhy CNRS / Grenoble, University of Trieste) over the past two years, spending time in Grenoble and collaborating remotely.
+    </p>
+    <p>
+      Alongside physics and ML, I spend time on badminton, table tennis, chess, and travelling. I like long conversations about the philosophy of science, and I am slowly learning to be a better reader.
+    </p>
+  </div>
+</div>
+
+<!-- RESEARCH -->
+<div id="page-research" class="page">
+  <h2 class="page-title fade-up">Research</h2>
+  <p class="research-intro fade-up">
+    I work on problems where statistical physics and machine learning meet — interpretable models, 
+    feature selection, and understanding what structure tells us about dynamics. 
+    My current focus is benchmarking ML force fields without predefined test sets.
+    <br><br>
+    Publications on <a href="https://scholar.google.com/citations?user=rPC9pQMAAAAJ&hl=en" target="_blank">Google Scholar</a>.
+  </p>
+
+  <div class="fade-up">
+    <div class="pub-section-label">Published</div>
+
+    <div class="pub-item">
+      <div class="pub-title">
+        <a href="https://doi.org/10.1103/q6pd-7trs" target="_blank">
+          Interpretability of linear regression models of glassy dynamics
+        </a>
+        <span class="pub-status">2026</span>
+      </div>
+      <div class="pub-authors"><strong>Anand Sharma</strong>, Chen Liu, Misaki Ozawa, Daniele Coslovich</div>
+      <div class="pub-venue">Physical Review Materials 10, 035602 (2026)</div>
+    </div>
+
+    <div class="pub-item">
+      <div class="pub-title">
+        <a href="https://doi.org/10.1063/5.0235084" target="_blank">
+          Selecting relevant structural features for glassy dynamics by information imbalance
+        </a>
+        <span class="pub-status">2024</span>
+      </div>
+      <div class="pub-authors"><strong>Anand Sharma</strong>, Chen Liu, Misaki Ozawa</div>
+      <div class="pub-venue">Journal of Chemical Physics 161, 184506 (2024)</div>
+    </div>
+  </div>
+
+  <div class="fade-up" style="margin-top: 3rem;">
+    <div class="pub-section-label">In Preparation</div>
+
+    <div class="pub-item">
+      <div class="pub-title">
+        Self-Consistent Benchmarking of Machine Learning Force Fields via Energy-Landscape Exploration
+        <span class="pub-status prep">prep</span>
+      </div>
+      <div class="pub-authors"><strong>Anand Sharma</strong>, Igor Poltavsky, Alexandre Tkatchenko</div>
+    </div>
+
+    <div class="pub-item">
+      <div class="pub-title">
+        Linear Models with Highly Correlated Features
+        <span class="pub-status prep">prep</span>
+      </div>
+      <div class="pub-authors"><strong>Anand Sharma</strong>, Chen Liu, Misaki Ozawa, Daniele Coslovich</div>
+    </div>
+
+    <div class="pub-item">
+      <div class="pub-title">
+        Predicting Glassy Dynamics for Swap and Normal Monte Carlo using Machine Learning
+        <span class="pub-status prep">prep</span>
+      </div>
+      <div class="pub-authors"><strong>Anand Sharma</strong>, Takumi Nagasawa, Chen Liu, Misaki Ozawa, Daniele Coslovich</div>
+    </div>
+  </div>
+</div>
+
+<!-- CV -->
+<div id="page-cv" class="page">
+  <h2 class="page-title fade-up">CV</h2>
+
+  <div class="cv-section fade-up">
+    <div class="cv-section-title">Education</div>
+    <div class="cv-entry">
+      <div class="cv-period">2021 – 2026</div>
+      <div>
+        <div class="cv-title">BS–MS in Physics</div>
+        <div class="cv-org">IISER Pune, India</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cv-section fade-up">
+    <div class="cv-section-title">Research Positions</div>
+    <div class="cv-entry">
+      <div class="cv-period">May 2025 – Mar 2026</div>
+      <div>
+        <div class="cv-title">Visiting Student</div>
+        <div class="cv-org">University of Luxembourg — Poltavsky, Tkatchenko group</div>
+      </div>
+    </div>
+    <div class="cv-entry">
+      <div class="cv-period">May – Jul 2024</div>
+      <div>
+        <div class="cv-title">Visiting Student</div>
+        <div class="cv-org">LIPhy (CNRS), Grenoble, France — Ozawa group</div>
+      </div>
+    </div>
+    <div class="cv-entry">
+      <div class="cv-period">May – Jun 2023</div>
+      <div>
+        <div class="cv-title">Summer Research Intern</div>
+        <div class="cv-org">IIT (BHU), Varanasi — Singh group</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cv-section fade-up">
+    <div class="cv-section-title">Selected Talks & Conferences</div>
+    <div class="cv-entry">
+      <div class="cv-period">Mar 2026</div>
+      <div>
+        <div class="cv-title">DPG Spring Meeting — Contributed Talk</div>
+        <div class="cv-org">Dresden, Germany</div>
+      </div>
+    </div>
+    <div class="cv-entry">
+      <div class="cv-period">May 2025</div>
+      <div>
+        <div class="cv-title">CECAM Workshop: ML in Physical Sciences — Poster</div>
+        <div class="cv-org">Lyon, France</div>
+      </div>
+    </div>
+    <div class="cv-entry">
+      <div class="cv-period">Jun 2024</div>
+      <div>
+        <div class="cv-title">CNRS GDR IDE Annual Meeting — Poster</div>
+        <div class="cv-org">Grenoble, France</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="fade-up">
+    <div class="cv-section-title">Skills</div>
+    <div class="cv-entry">
+      <div class="cv-period">Languages</div>
+      <div>
+        <div class="cv-title" style="font-weight:400; font-family: var(--mono); font-size: 0.82rem;">Python · JAX · PyTorch · MATLAB · MySQL</div>
+      </div>
+    </div>
+    <div class="cv-entry">
+      <div class="cv-period">Methods</div>
+      <div>
+        <div class="cv-title" style="font-weight:400; font-family: var(--mono); font-size: 0.82rem;">Equivariant networks · Monte Carlo · Interpretable ML · Information theory · HPC</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="fade-up" style="margin-top: 2.5rem;">
+    <a href="mailto:anand.sharma@students.iiserpune.ac.in" class="link-pill">Request full CV →</a>
+  </div>
+</div>
+
+<!-- CONTACT -->
+<div id="page-contact" class="page">
+  <h2 class="page-title fade-up">Contact</h2>
+  <p class="prose fade-up" style="color: var(--muted);">
+    The best way to reach me is by email. I am happy to talk about research, collaborations, or PhD opportunities.
+  </p>
+  <div class="contact-block fade-up">
+    <div class="contact-row">
+      <span class="contact-label">Email</span>
+      <a href="mailto:anand.sharma@students.iiserpune.ac.in" class="contact-val">anand.sharma@students.iiserpune.ac.in</a>
+    </div>
+    <div class="contact-row">
+      <span class="contact-label">GitHub</span>
+      <a href="https://github.com/Anand-Sharma22" target="_blank" class="contact-val">Anand-Sharma22</a>
+    </div>
+    <div class="contact-row">
+      <span class="contact-label">Google Scholar</span>
+      <a href="https://scholar.google.com/citations?user=rPC9pQMAAAAJ&hl=en" target="_blank" class="contact-val">Anand Sharma</a>
+    </div>
+    <div class="contact-row">
+      <span class="contact-label">Location</span>
+      <span class="contact-val" style="border-color: transparent; cursor: default;">Luxembourg City &rarr; IISER Pune (May 2026)</span>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <span class="footer-copy">© Anand Sharma</span>
+  <span class="footer-copy" id="footer-page">Home</span>
+</footer>
+
+<script>
+const pages = ['home','about','research','cv','contact'];
+const labels = { home: 'Home', about: 'About', research: 'Research', cv: 'CV', contact: 'Contact' };
+
+function showPage(id) {
+  pages.forEach(p => {
+    document.getElementById('page-'+p).classList.remove('active');
+    document.getElementById('nav-'+p).classList.remove('active');
+  });
+  const target = document.getElementById('page-'+id);
+  target.classList.add('active');
+  document.getElementById('nav-'+id).classList.add('active');
+  document.getElementById('footer-page').textContent = labels[id];
+
+  // re-trigger fade animations
+  target.querySelectorAll('.fade-up').forEach(el => {
+    el.style.animation = 'none';
+    el.offsetHeight; // reflow
+    el.style.animation = '';
+  });
+
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// Dark mode
+const toggle = document.getElementById('theme-toggle');
+let dark = false;
+
+toggle.addEventListener('click', () => {
+  dark = !dark;
+  document.documentElement.setAttribute('data-theme', dark ? 'dark' : '');
+  toggle.textContent = dark ? '☀' : '☽';
+});
+</script>
+
+</body>
+</html>
